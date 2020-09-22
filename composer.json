@@ -1,0 +1,23 @@
+{
+  "name": "leadvertex/plugin-component-settings",
+  "description": "LeadVertex plugin settings model",
+  "type": "library",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Timur Kasumov aka XAKEPEHOK",
+      "email": "support@leadvertex.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Leadvertex\\Plugin\\Components\\Settings\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.2.0",
+    "leadvertex/plugin-component-db": "^0.2.0",
+    "leadvertex/plugin-component-form": "^0.8.0"
+  }
+}

@@ -8,19 +8,20 @@
 namespace Leadvertex\Plugin\Components\Settings;
 
 
-use Leadvertex\Plugin\Components\Db\Model;
+use Leadvertex\Plugin\Components\Db\Components\Connector;
+use Leadvertex\Plugin\Components\Db\ModelTrait;
+use Leadvertex\Plugin\Components\Db\SinglePluginModelInterface;
 use Leadvertex\Plugin\Components\Form\FormData;
 
-/**
- * Class Settings
- * @property $data FormData
- */
-class Settings extends Model
+class Settings implements SinglePluginModelInterface
 {
 
-    public function __construct(string $id, string $alias)
+    use ModelTrait;
+
+    protected FormData $data;
+
+    protected function __construct()
     {
-        parent::__construct($id, $alias);
         $this->data = new FormData();
     }
 
@@ -34,4 +35,27 @@ class Settings extends Model
         $this->data = $data;
     }
 
+    protected static function beforeDeserialize(array $data): array
+    {
+        $data['data'] = new FormData(json_decode($data['data'], true));
+        return $data;
+    }
+
+    protected static function afterSerialize(array $data): array
+    {
+        $data['data'] = json_encode($data['data']);
+        return $data;
+    }
+
+    public static function find(): self
+    {
+        return static::findById(Connector::getReference()->getId()) ?? new static();
+    }
+
+    public static function schema(): array
+    {
+        return [
+            'data' => ['TEXT'],
+        ];
+    }
 }

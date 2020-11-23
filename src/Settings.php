@@ -35,15 +35,15 @@ class Settings implements SinglePluginModelInterface
         $this->data = $data;
     }
 
-    protected static function beforeDeserialize(array $data): array
+    protected static function beforeWrite(array $data): array
     {
-        $data['data'] = new FormData(json_decode($data['data'], true));
+        $data['data'] = json_encode($data['data']);
         return $data;
     }
 
-    protected static function afterSerialize(array $data): array
+    protected static function afterRead(array $data): array
     {
-        $data['data'] = json_encode($data['data']);
+        $data['data'] = new FormData(json_decode($data['data'], true));
         return $data;
     }
 

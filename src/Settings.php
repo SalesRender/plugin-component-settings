@@ -13,7 +13,7 @@ use Leadvertex\Plugin\Components\Db\ModelTrait;
 use Leadvertex\Plugin\Components\Db\SinglePluginModelInterface;
 use Leadvertex\Plugin\Components\Form\FormData;
 
-class Settings implements SinglePluginModelInterface
+final class Settings implements SinglePluginModelInterface
 {
 
     use ModelTrait;

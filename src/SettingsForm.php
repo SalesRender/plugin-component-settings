@@ -9,6 +9,7 @@ namespace Leadvertex\Plugin\Components\Settings;
 
 
 use Leadvertex\Plugin\Components\Form\Form;
+use Leadvertex\Plugin\Components\Settings\Exceptions\IntegritySettingsException;
 use RuntimeException;
 
 final class SettingsForm extends Form
@@ -42,6 +43,19 @@ final class SettingsForm extends Form
             throw new RuntimeException('Settings form was not configured');
         }
         return self::$instance;
+    }
+
+    /**
+     * @throws IntegritySettingsException
+     */
+    public static function guardIntegrity(): void
+    {
+        $form = self::getInstance();
+        $settings = Settings::find();
+
+        if (!$form->validateData($settings->getData())) {
+            throw new IntegritySettingsException('Settings data empty or incomplete');
+        }
     }
 
 }

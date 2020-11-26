@@ -9,14 +9,12 @@ namespace Leadvertex\Plugin\Components\Settings;
 
 
 use Leadvertex\Plugin\Components\Db\Components\Connector;
-use Leadvertex\Plugin\Components\Db\ModelTrait;
+use Leadvertex\Plugin\Components\Db\Model;
 use Leadvertex\Plugin\Components\Db\SinglePluginModelInterface;
 use Leadvertex\Plugin\Components\Form\FormData;
 
-final class Settings implements SinglePluginModelInterface
+final class Settings  extends Model implements SinglePluginModelInterface
 {
-
-    use ModelTrait;
 
     protected FormData $data;
 

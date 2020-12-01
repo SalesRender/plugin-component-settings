@@ -30,10 +30,6 @@ final class SettingsForm extends Form
      */
     public static function config($title, $description, $fieldGroups, $button): void
     {
-        $title = is_callable($title) ? $title() : $title;
-        $description = is_callable($description) ? $description() : $description;
-        $fieldGroups = is_callable($fieldGroups) ? $fieldGroups() : $fieldGroups;
-        $button = is_callable($button) ? $button() : $button;
         self::$instance = new self($title, $description, $fieldGroups, $button);
     }
 

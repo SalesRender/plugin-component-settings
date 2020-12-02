@@ -15,25 +15,19 @@ use RuntimeException;
 final class SettingsForm extends Form
 {
 
-    private static self $instance;
+    private static Form $instance;
 
     private function __construct(string $title, ?string $description, array $fieldGroups, string $button)
     {
         parent::__construct($title, $description, $fieldGroups, $button);
     }
 
-    /**
-     * @param callable|string $title
-     * @param callable|string|null $description
-     * @param callable|array $fieldGroups
-     * @param callable|string $button
-     */
-    public static function config($title, $description, $fieldGroups, $button): void
+    public static function config(Form $form): void
     {
-        self::$instance = new self($title, $description, $fieldGroups, $button);
+        self::$instance = $form;
     }
 
-    public static function getInstance(): self
+    public static function getInstance(): Form
     {
         if (!isset(self::$instance)) {
             throw new RuntimeException('Settings form was not configured');

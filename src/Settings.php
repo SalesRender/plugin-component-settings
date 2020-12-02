@@ -11,10 +11,16 @@ namespace Leadvertex\Plugin\Components\Settings;
 use Leadvertex\Plugin\Components\Db\Components\Connector;
 use Leadvertex\Plugin\Components\Db\Model;
 use Leadvertex\Plugin\Components\Db\SinglePluginModelInterface;
+use Leadvertex\Plugin\Components\Form\Form;
 use Leadvertex\Plugin\Components\Form\FormData;
+use Leadvertex\Plugin\Components\Settings\Exceptions\IntegritySettingsException;
+use RuntimeException;
 
-final class Settings  extends Model implements SinglePluginModelInterface
+final class Settings extends Model implements SinglePluginModelInterface
 {
+
+    /** @var Form|callable */
+    private static $form;
 
     protected FormData $data;
 
@@ -45,7 +51,7 @@ final class Settings  extends Model implements SinglePluginModelInterface
         return $data;
     }
 
-    public static function find(): self
+    public static function find(): Settings
     {
         return static::findById(Connector::getReference()->getId()) ?? new static();
     }
@@ -55,5 +61,34 @@ final class Settings  extends Model implements SinglePluginModelInterface
         return [
             'data' => ['TEXT'],
         ];
+    }
+
+    public static function getForm(): Form
+    {
+        if (!isset(self::$form)) {
+            throw new RuntimeException('Settings form was not configured');
+        }
+        return is_callable(self::$form) ? (self::$form)() : self::$form;
+    }
+
+    /**
+     * @param Form|callable $form
+     */
+    public static function setForm($form): void
+    {
+        self::$form = $form;
+    }
+
+    /**
+     * @throws IntegritySettingsException
+     */
+    public static function guardIntegrity(): void
+    {
+        $form = self::getForm();
+        $settings = self::find();
+
+        if (!$form->validateData($settings->getData())) {
+            throw new IntegritySettingsException('Settings data empty or incomplete');
+        }
     }
 }

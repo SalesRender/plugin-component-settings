@@ -22,6 +22,8 @@ final class Settings extends Model implements SinglePluginModelInterface
     /** @var Form|callable */
     private static $form;
 
+    private static array $onSaveHandlers = [];
+
     protected FormData $data;
 
     protected function __construct()
@@ -79,6 +81,14 @@ final class Settings extends Model implements SinglePluginModelInterface
         self::$form = $form;
     }
 
+    public function save(): void
+    {
+        parent::save();
+        foreach (self::$onSaveHandlers as $handler) {
+            $handler($this->data);
+        }
+    }
+
     /**
      * @throws IntegritySettingsException
      */
@@ -90,5 +100,10 @@ final class Settings extends Model implements SinglePluginModelInterface
         if (!$form->validateData($settings->getData())) {
             throw new IntegritySettingsException('Settings data empty or incomplete');
         }
+    }
+
+    public static function addOnSaveHandler(callable $handler): void
+    {
+        self::$onSaveHandlers[] = $handler;
     }
 }

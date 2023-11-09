@@ -1,1 +1,1 @@
-Settings model for leadvertex plugins based on [leadvertex/plugin-component-db](https://github.com/leadvertex/plugin-component-db).
+Settings model for leadvertex plugins based on [salesrender/plugin-component-db](https://github.com/salesrender/plugin-component-db).

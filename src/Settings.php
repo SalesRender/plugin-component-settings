@@ -5,15 +5,15 @@
  * @author Timur Kasumov aka XAKEPEHOK
  */
 
-namespace Leadvertex\Plugin\Components\Settings;
+namespace SalesRender\Plugin\Components\Settings;
 
 
-use Leadvertex\Plugin\Components\Db\Components\Connector;
-use Leadvertex\Plugin\Components\Db\Model;
-use Leadvertex\Plugin\Components\Db\SinglePluginModelInterface;
-use Leadvertex\Plugin\Components\Form\Form;
-use Leadvertex\Plugin\Components\Form\FormData;
-use Leadvertex\Plugin\Components\Settings\Exceptions\IntegritySettingsException;
+use SalesRender\Plugin\Components\Db\Components\Connector;
+use SalesRender\Plugin\Components\Db\Model;
+use SalesRender\Plugin\Components\Db\SinglePluginModelInterface;
+use SalesRender\Plugin\Components\Form\Form;
+use SalesRender\Plugin\Components\Form\FormData;
+use SalesRender\Plugin\Components\Settings\Exceptions\IntegritySettingsException;
 use RuntimeException;
 
 final class Settings extends Model implements SinglePluginModelInterface

@@ -63,12 +63,15 @@ final class Settings extends Model implements SinglePluginModelInterface
         ];
     }
 
-    public static function getForm(): Form
+    public static function getForm(array $context = []): Form
     {
         if (!isset(self::$form)) {
             throw new RuntimeException('Settings form was not configured');
         }
-        return is_callable(self::$form) ? (self::$form)() : self::$form;
+
+        $form = is_callable(self::$form) ? (self::$form)($context) : self::$form;
+        $form->setContext($context);
+        return $form;
     }
 
     /**

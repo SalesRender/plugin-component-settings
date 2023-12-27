@@ -19,6 +19,6 @@
     "php": ">=7.4.0",
     "ext-json": "*",
     "salesrender/plugin-component-db": "^0.3.0",
-    "salesrender/plugin-component-form": "^0.10.0"
+    "salesrender/plugin-component-form": "^0.11.0|^0.10.0"
   }
 }
